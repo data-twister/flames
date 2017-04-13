@@ -24,7 +24,7 @@ defmodule Flames.Error do
   end
 
   @required ~w(message timestamp alive hash count level)
-  @optional ~w(module function file line)
+  @optional ~w(module function file line resolved)
 
   def changeset(model, params \\ %{}) do
     model
