@@ -57,7 +57,7 @@ defmodule Flames.Mixfile do
       {:phoenix, "~> 1.4.1", optional: true},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
       {:earmark, ">= 0.0.0", only: [:docs, :dev]},
-      {:phoenix_ecto, "~> 4.0" only: :test},
+      {:phoenix_ecto, "~> 4.0", only: :test},
       {:phoenix_html, "~> 2.9", only: :test},
     ]
   end
