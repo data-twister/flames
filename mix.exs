@@ -1,7 +1,7 @@
 defmodule Flames.Mixfile do
   use Mix.Project
 
-  @version "0.2.3"
+  @version "1.4.1"
   def project do
     [
       app: :flames,
@@ -12,7 +12,7 @@ defmodule Flames.Mixfile do
       name: "flames",
       description: description,
       package: package,
-      source_url: "https://github.com/mgwidmann/flames",
+      source_url: "https://github.com/data-twister/flames",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps,
@@ -53,12 +53,12 @@ defmodule Flames.Mixfile do
 
   defp deps do
     [
-      {:ecto, "~> 1.1 or ~> 2.0"},
-      {:phoenix, "~> 1.1", optional: true},
-      {:ex_doc, "~> 0.14", only: [:docs, :dev]},
-      {:earmark, "~> 1.0", only: [:docs, :dev]},
-      {:phoenix_ecto, "~> 2.0 or ~> 3.0", only: :test},
-      {:phoenix_html, "~> 2.3", only: :test},
+      {:ecto, "~> 3.0"},
+      {:phoenix, "~> 1.4.1", optional: true}
+      {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
+      {:earmark, ">= 0.0.0", only: [:docs, :dev]},
+      {:phoenix_ecto, "~> 4.0" only: :test},
+      {:phoenix_html, "~> 2.9", only: :test}
     ]
   end
 
@@ -73,10 +73,10 @@ defmodule Flames.Mixfile do
 
   defp package do
     [
-      maintainers: ["Matt Widmann"],
+      maintainers: ["Jason Clark"],
       licenses: ["MIT"],
       links: %{
-        "GitHub" => "http://github.com/mgwidmann/flames",
+        "GitHub" => "http://github.com/data-twister/flames",
         "Docs" => "http://hexdocs.pm/flames/"
       }
     ]
