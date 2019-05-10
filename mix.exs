@@ -54,12 +54,12 @@ defmodule Flames.Mixfile do
   defp deps do
     [
 
-      {:ecto, ">= 2.0"},
-      {:phoenix, ">= 1.1", optional: true},
+      {:ecto, ">= 2.0.0"},
+      {:phoenix, ">= 1.1.0", optional: true},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
       {:earmark, ">= 0.0.0", only: [:docs, :dev]},
-      {:phoenix_ecto, ">= 2.0", only: :test},
-      {:phoenix_html, ">= 2.3", only: :test},
+      {:phoenix_ecto, ">= 2.0.0", only: :test},
+      {:phoenix_html, ">= 2.3.0", only: :test},
     ]
   end
 
