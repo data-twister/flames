@@ -10,9 +10,10 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:flames, "~> 0.2.0"}]
+      [{:flames, git: "https://github.com/elixir-lang/foobar.git", tag: "1.4.1"}]
     end
     ```
+    # tags follow the version pf phx with revisions as alpha ie. 1.4.1.a means revsison a is based on phx 1.4.1
 
   2. Ensure `flames` is started before your application:
 
