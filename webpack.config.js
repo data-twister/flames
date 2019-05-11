@@ -16,13 +16,18 @@ module.exports = (env, options) => ({
       new OptimizeCSSAssetsPlugin({})
     ]
   },
-    entry: './lib/web/static/js/app.js',
+    entry: './lib/web/assets/js/app.js',
   output: {
     filename: 'app.js',
     path: outputDir
   },
   module: {
     rules: [
+      { 
+        test: /\.jsx?$/, 
+        loaders: ['babel'], 
+        include: path.join(__dirname, 'lib/web/assets/jsx')
+       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -33,11 +38,16 @@ module.exports = (env, options) => ({
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
-      }
+      },
+      { test: /\.scss$/, loaders: [ 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader' ] },
+      { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.jpg$/, loader: "file-loader" },
+      { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
+      { test: /\.(ttf|eot)$/, loader: 'file' },
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: './css/app.css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: outputDir }])
+    new MiniCssExtractPlugin({ filename: './lib/web/priv/static/css/app.css' }),
+    new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }])
   ]
 });

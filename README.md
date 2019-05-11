@@ -83,7 +83,7 @@ The package can be installed as:
   Endpoint (Make sure this is the full path, adding `/socket` to the end)
   ```elixir
   socket "/errors/socket", Flames.UserSocket
-  socket "/live", Phoenix.LiveView.Socket
+  socket "/errors/socket/live", Phoenix.LiveView.Socket
   ```
 or
   ```elixir

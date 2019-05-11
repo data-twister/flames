@@ -8,10 +8,14 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         ~L"""
         <div class="">
           <div>
-          errors
+          <%= @errors %>
           </div>
         </div>
         """
+      end
+
+      def mount(_session, socket) do
+        {:ok, assign(socket, errors: "error!")}
       end
     end
   
