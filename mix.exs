@@ -56,10 +56,10 @@ defmodule Flames.Mixfile do
 
       {:ecto, ">= 2.0.0"},
       {:phoenix, ">= 1.1.0", optional: true},
+      {:phoenix_ecto, ">= 2.0.0", optional: true},
+      {:phoenix_html, ">= 2.3.0", optional: true},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
-      {:earmark, ">= 0.0.0", only: [:docs, :dev]},
-      {:phoenix_ecto, ">= 2.0.0", only: :test},
-      {:phoenix_html, ">= 2.3.0", only: :test},
+      {:earmark, ">= 0.0.0", only: [:docs, :dev]}
     ]
   end
 
