@@ -3,6 +3,7 @@ defmodule Flames.Web do
 
   def view do
     quote do
+      use Phoenix.View, root: "lib/web/templates"
        import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
     end
   end
