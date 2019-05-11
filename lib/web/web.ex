@@ -3,8 +3,7 @@ defmodule Flames.Web do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/web/templates"
-      use Phoenix.HTML
+       import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
     end
   end
 
@@ -21,16 +20,14 @@ defmodule Flames.Web do
     end
   end
 
+  def router do
+    quote do
+     
+      import Phoenix.LiveView.Router
+    end
+
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
 
-  # Serves static files, otherwises passes connection to Flames.Router.
-  use Plug.Builder
-
-  plug Plug.Static,
-    at: "/", from: :flames,
-    only: ~w(css js png)
-
-  plug Flames.Router
 end

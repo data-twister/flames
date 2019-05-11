@@ -6,8 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const jsDir = path.join(__dirname, "../../priv/static/front_office/js/");
-const outputDir = path.join(__dirname, "../../priv/static/front_office/");
+const outputDir = path.join(__dirname, "./lib/web/priv/");
 
 
 module.exports = (env, options) => ({
@@ -17,10 +16,10 @@ module.exports = (env, options) => ({
       new OptimizeCSSAssetsPlugin({})
     ]
   },
-    entry: './app/index.bs.js',
+    entry: './lib/web/static/js/app.js',
   output: {
     filename: 'app.js',
-    path: jsDir
+    path: outputDir
   },
   module: {
     rules: [
@@ -42,4 +41,3 @@ module.exports = (env, options) => ({
     new CopyWebpackPlugin([{ from: 'static/', to: outputDir }])
   ]
 });
-

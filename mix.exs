@@ -1,7 +1,7 @@
 defmodule Flames.Mixfile do
   use Mix.Project
 
-  @version "1.4.1"
+  @version "3.0.0"
   def project do
     [
       app: :flames,
@@ -55,9 +55,8 @@ defmodule Flames.Mixfile do
     [
 
       {:ecto, ">= 2.0.0"},
-      {:phoenix, ">= 1.1.0"},
-      {:phoenix_ecto, ">= 2.0.0"},
-      {:phoenix_html, ">= 2.3.0"},
+      {:phoenix, ">= 1.4.0"},
+      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
       {:earmark, ">= 0.0.0", only: [:docs, :dev]}
     ]

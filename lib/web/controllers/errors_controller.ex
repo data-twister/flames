@@ -3,6 +3,31 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     @moduledoc false
 
     use Flames.Web, :controller
+    alias Phoenix.LiveView
+
+    def interface(conn, _) do
+      repo = Application.get_env(:flames, :repo)
+      errors = repo.all(from e in Flames.Error, order_by: [desc: e.id])
+      LiveView.Controller.live_render(conn, Flames.Template.Index, session: errors)
+    end
+
+    def live_index(conn, _) do
+      repo = Application.get_env(:flames, :repo)
+      errors = repo.all(from e in Flames.Error, order_by: [desc: e.id])
+      LiveView.Controller.live_render(conn, Flames.Template.Errors, session: errors)
+    end
+
+    def live_show(conn, _) do
+      repo = Application.get_env(:flames, :repo)
+      error = repo.one(from e in Flames.Error, where: e.id == ^error_id, limit: 1)
+      LiveView.Controller.live_render(conn, Flames.Template.Errors, session: error)
+    end
+
+    def live_search(conn, %{"term" => term}) do
+      results = term |> String.split(" ") # TODO: Finish
+      LiveView.Controller.live_render(conn, Flames.Template.Errors, session: results)
+    end
+
 
     def index(conn, _params) do
       repo = Application.get_env(:flames, :repo)
@@ -10,9 +35,6 @@ if Code.ensure_loaded?(Phoenix.Controller) do
       render(conn, "index.json", errors: errors)
     end
 
-    def interface(conn, _params) do
-      render(conn, "index.html")
-    end
 
     def show(conn, %{"id" => error_id}) do
       repo = Application.get_env(:flames, :repo)

@@ -1,4 +1,4 @@
-# Flames [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://semaphoreci.com/api/v1/mgwidmann/flames/branches/master/badge.svg)](https://semaphoreci.com/mgwidmann/flames)
+# Flames [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
 
 ![Example Dashboard](example.png)
 
@@ -10,10 +10,10 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:flames, git: "https://github.com/elixir-lang/foobar.git", tag: "1.4.1"}]
+      [{:flames, git: "https://github.com/data-twister/flames.git", tag: "1.4.1"}]
     end
     ```
-    # tags follow the version pf phx with revisions as alpha ie. 1.4.1.a means revsison a is based on phx 1.4.1
+    # tags follow the version pf phx with revisions as alpha ie. 1.4.1 means revsison a is based on phx 1.4.1
 
   2. Ensure `flames` is started before your application:
 
@@ -33,6 +33,12 @@ The package can be installed as:
 
     config :logger,
       backends: [:console, Flames.Logger]
+       live_view: [
+    signing_salt: "YOUR_SECRET"
+  ]
+
+  config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
     ```
 
   4. Add the following migration:
@@ -77,7 +83,11 @@ The package can be installed as:
   Endpoint (Make sure this is the full path, adding `/socket` to the end)
   ```elixir
   socket "/errors/socket", Flames.UserSocket
+  socket "/live", Phoenix.LiveView.Socket
   ```
-
+or
+  ```elixir
+ use Flames.Endpoint
+  ```
 
   Visit http://localhost:4000/errors (or wherever you mounted it) to see a live stream of errors.
