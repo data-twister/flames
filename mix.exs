@@ -57,6 +57,7 @@ defmodule Flames.Mixfile do
       {:ecto, ">= 2.0.0"},
       {:phoenix, ">= 1.4.0"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:poison, ">= 3.0.0"},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
       {:earmark, ">= 0.0.0", only: [:docs, :dev]}
     ]

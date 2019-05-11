@@ -17,7 +17,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
       LiveView.Controller.live_render(conn, Flames.Template.Errors, session: errors)
     end
 
-    def live_show(conn, _) do
+    def live_show(conn, %{"id" => error_id}) do
       repo = Application.get_env(:flames, :repo)
       error = repo.one(from e in Flames.Error, where: e.id == ^error_id, limit: 1)
       LiveView.Controller.live_render(conn, Flames.Template.Errors, session: error)

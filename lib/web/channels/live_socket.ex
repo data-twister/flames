@@ -1,6 +1,7 @@
 if Code.ensure_loaded?(Phoenix.LiveView.Socket) do
     defmodule Flames.LiveSocket do
-      use Phoenix.LiveView.Socket
+      use Phoenix.Socket
+      # use Phoenix.LiveView.Socket
   
       ## Channels
       channel "errors", Flames.ErrorChannel

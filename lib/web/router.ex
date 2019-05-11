@@ -35,7 +35,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
       delete "/errors/:id", ErrorsController, :delete
       get "/errors/search", ErrorsController, :search
     end
-  end
+  
 
   scope "/api/live", Flames do
     pipe_through :api
@@ -45,5 +45,6 @@ if Code.ensure_loaded?(Phoenix.Router) do
     delete "/errors/:id", ErrorsController, :live_delete
     get "/errors/search", ErrorsController, :live_search
   end
+
 end
 end

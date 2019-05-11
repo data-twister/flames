@@ -4,7 +4,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
   
       use Phoenix.LiveView
   
-      def render() do
+      def render(assigns) do
         ~L"""
         <div class="">
           <div>
@@ -16,5 +16,4 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     end
   
     end
-  end
   
