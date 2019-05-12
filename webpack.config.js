@@ -10,9 +10,9 @@ const ASSETS_DIR = path.resolve(__dirname, './lib/web/assets/');
 
 const OUTPUT_DIR = path.join(__dirname, "./priv/");
 
-const react_app = false;
+const REACT_APP = false;
 
-if(react_app == false)
+if(REACT_APP == false)
 {
 module.exports = (env, options) => ({
   optimization: {
