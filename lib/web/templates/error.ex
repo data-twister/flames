@@ -18,14 +18,14 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         {:ok, assign(socket, error: "error!")}
       end
       
-    end
-
-    def handle_event("add-error", %{"q" => error}, socket) do
+      def handle_event("add-error", %{"q" => error}, socket) do
         case error do
           "" -> {:noreply, assign(socket, :error, "")}
           _  -> {:noreply, assign(socket, :error, error)}
         end
       end
-  
+
     end
+    end
+  
   
