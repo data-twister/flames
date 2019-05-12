@@ -7,9 +7,9 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // var BUILD_DIR = path.resolve(__dirname, './lib/web/assets');
-// var APP_DIR = path.resolve(__dirname, './lib/web/priv/static');
+// var APP_DIR = path.join(__dirname, "./priv/");
 
-const outputDir = path.join(__dirname, "./lib/web/priv/");
+const outputDir = path.join(__dirname, "./priv/");
 
 
 module.exports = (env, options) => ({
@@ -22,11 +22,11 @@ module.exports = (env, options) => ({
   //
   // entry: [
   //   'bootstrap-loader',
-  //   APP_DIR + '/js/flames-frontend.jsx'
+  //   APP_DIR + '/jsx/flames-frontend.jsx'
   // ],
   // output: {
   //   path: BUILD_DIR,
-  //   filename: '/js/flames-frontend.js'
+  //   filename: 'flames-frontend.js'
   // },
   // plugins: [
   //   new ExtractTextPlugin('/css/flames-frontend.css', { allChunks: true }),
