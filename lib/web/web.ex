@@ -43,13 +43,19 @@ defmodule Flames.Web do
    end
 
   case value do
-    nil -> nil
-    "" -> nil
-    "YOUR_SECRET" -> nil
-    _ ->  
+    nil -> 
       plug Plug.Static,
     at: "/", from: :flames,
     only: ~w(css js png)
+    "" -> 
+      plug Plug.Static,
+    at: "/", from: :flames,
+    only: ~w(css js png)
+    "YOUR_SECRET" -> 
+      plug Plug.Static,
+    at: "/", from: :flames,
+    only: ~w(css js png)
+    _ ->  nil
   end
 
   # Serves static files, otherwises passes connection to Flames.Router.
