@@ -6,12 +6,14 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-// var BUILD_DIR = path.resolve(__dirname, './lib/web/assets');
-// var APP_DIR = path.join(__dirname, "./priv/");
+const ASSETS_DIR = path.resolve(__dirname, './lib/web/assets/');
 
-const outputDir = path.join(__dirname, "./priv/");
+const OUTPUT_DIR = path.join(__dirname, "./priv/");
 
+const react_app = false;
 
+if(react_app == false)
+{
 module.exports = (env, options) => ({
   optimization: {
     minimizer: [
@@ -19,28 +21,10 @@ module.exports = (env, options) => ({
       new OptimizeCSSAssetsPlugin({})
     ]
   },
-  //
-  // entry: [
-  //   'bootstrap-loader',
-  //   APP_DIR + '/jsx/flames-frontend.jsx'
-  // ],
-  // output: {
-  //   path: BUILD_DIR,
-  //   filename: 'flames-frontend.js'
-  // },
-  // plugins: [
-  //   new ExtractTextPlugin('/css/flames-frontend.css', { allChunks: true }),
-  //   new webpack.ProvidePlugin({
-  //     $: "jquery",
-  //     jQuery: "jquery",
-  //     "window.jQuery": "jquery"
-  //   })
-  // ],
-  //
- entry: './lib/web/assets/js/app.js',
+ entry: ASSETS_DIR +  'js/app.js',
   output: {
     filename: 'app.js',
-    path: outputDir
+    path: OUTPUT_DIR
   },
   module: {
     rules: [
@@ -72,3 +56,36 @@ module.exports = (env, options) => ({
     new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }])
   ]
 });
+}else{
+
+  module.exports = (env, options) => ({
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
+    
+    entry: [
+      'bootstrap-loader',
+      ASSETS_DIR + 'jsx/flames-frontend.jsx'
+    ],
+    output: {
+      path: OUTPUT_DIR,
+      filename: 'flames-frontend.js'
+    },
+    plugins: [
+      new ExtractTextPlugin('/css/flames-frontend.css', { allChunks: true }),
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+      })
+    ],
+    
+    plugins: [
+      new MiniCssExtractPlugin({ filename: './lib/web/priv/static/css/app.css' }),
+      new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }])
+    ]
+  });
+}
