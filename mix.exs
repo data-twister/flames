@@ -33,7 +33,7 @@ defmodule Flames.Mixfile do
 
   defp apps(_), do: apps
   defp apps do
-    [:logger]
+    [:logger, :phoenix ]
   end
 
   # Need phoenix compiler to compile our views.
@@ -48,7 +48,7 @@ defmodule Flames.Mixfile do
     end
   end
   defp compilers do
-    Mix.compilers
+    [:phoenix] ++ Mix.compilers
   end
 
   defp deps do
