@@ -32,6 +32,25 @@ defmodule Flames.Web do
     apply(__MODULE__, which, [])
   end
 
+  use Plug.Builder
+
+  [signing_salt: secret] = Application.get_env(:flames, :live_view)
+
+  case String.trim(secret) do
+    nil -> nil
+    "" -> nil
+    "YOUR_SECRET" -> nil
+    _ ->  
+      plug Plug.Static,
+    at: "/", from: :flames,
+    only: ~w(css js png)
+  end
+
+  # Serves static files, otherwises passes connection to Flames.Router.
+  plug Flames.Router
+
+
+ 
 
 end
 

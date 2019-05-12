@@ -6,7 +6,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
   
       def render(assigns) do
         ~L"""
-        <div class="">
+        <div>
           <div>
           <%= @errors %>
           </div>
@@ -18,6 +18,13 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         {:ok, assign(socket, errors: "error!")}
       end
     end
-  
+
+    def handle_event("add-errors", %{"q" => errors}, socket) do
+      case errors do
+        "" -> {:noreply, assign(socket, :errors, "")}
+        _  -> {:noreply, assign(socket, :errors, errors)}
+      end
+    end
+
     end
   
