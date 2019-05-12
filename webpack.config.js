@@ -1,5 +1,6 @@
 const path = require('path');
 const mode = require('glob');
+const webpack = require('webpack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -21,7 +22,7 @@ module.exports = (env, options) => ({
       new OptimizeCSSAssetsPlugin({})
     ]
   },
- entry: ASSETS_DIR +  'js/app.js',
+ entry: ASSETS_DIR +  '/js/app.js',
   output: {
     filename: 'app.js',
     path: OUTPUT_DIR
@@ -53,7 +54,7 @@ module.exports = (env, options) => ({
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: './lib/web/priv/static/css/app.css' }),
-    new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }])
+    new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: OUTPUT_DIR }])
   ]
 });
 }else{
@@ -68,24 +69,20 @@ module.exports = (env, options) => ({
     
     entry: [
       'bootstrap-loader',
-      ASSETS_DIR + 'jsx/flames-frontend.jsx'
+      ASSETS_DIR + '/jsx/flames-frontend.jsx'
     ],
     output: {
       path: OUTPUT_DIR,
       filename: 'flames-frontend.js'
     },
     plugins: [
-      new ExtractTextPlugin('/css/flames-frontend.css', { allChunks: true }),
+      new MiniCssExtractPlugin({ filename: '/css/flames-frontend.css' }),
+      new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }]),
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
         "window.jQuery": "jquery"
       })
-    ],
-    
-    plugins: [
-      new MiniCssExtractPlugin({ filename: './lib/web/priv/static/css/app.css' }),
-      new CopyWebpackPlugin([{ from: './lib/web/priv/static/', to: outputDir }])
     ]
   });
 }
