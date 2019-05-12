@@ -35,9 +35,14 @@ defmodule Flames.Web do
 
   use Plug.Builder
 
-  [signing_salt: secret] = Application.get_env(:flames, :live_view)
+   view = Application.get_env(:flames, :live_view)
 
-  case String.trim(secret) do
+   value = case view do
+    [signing_salt: secret] -> String.trim(secret)
+    _ -> nil
+   end
+
+  case value do
     nil -> nil
     "" -> nil
     "YOUR_SECRET" -> nil
