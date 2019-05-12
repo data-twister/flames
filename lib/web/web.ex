@@ -60,9 +60,5 @@ defmodule Flames.Web do
 
   # Serves static files, otherwises passes connection to Flames.Router.
   plug Flames.Router
-
-
- 
-
 end
 
