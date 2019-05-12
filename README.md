@@ -23,7 +23,7 @@ The package can be installed as:
     end
     ```
 
-  3. Add configuration to tell `flames` what your repository and (optional) Phoenix Endpoint modules are as well as adding it as a Logger backend:
+  3. Add configuration to tell `flames` what your repository and (optional) Phoenix Endpoint modules are as well as adding it as a Logger backend, to use liveview you must set the signing salt to something other than "YOUR_SECRET" otherwise it defaults to using the react app:
 
     ```elixir
     config :flames,
