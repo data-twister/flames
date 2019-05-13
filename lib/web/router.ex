@@ -15,7 +15,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
       plug(:put_secure_browser_headers)
       plug(:fetch_flash)
     end
-add :resolved, :string
+
     pipeline :live do
       plug(Phoenix.LiveView.Flash)
     end
