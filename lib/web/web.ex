@@ -60,7 +60,7 @@ defmodule Flames.Web do
       plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
 
     _ ->
-      nil
+      plug(Plug.Static, at: "/", from: :flames, only: ~w(css  png))
   end
 
   # Serves static files, otherwises passes connection to Flames.Router.
