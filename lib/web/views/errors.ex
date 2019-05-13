@@ -1,5 +1,5 @@
 if Code.ensure_loaded?(Phoenix.View) && Code.ensure_loaded?(Phoenix.HTML) do
-  defmodule Flames.View.Errors do
+  defmodule Flames.ErrorsView do
     @moduledoc false
 
     use Flames.Web, :view

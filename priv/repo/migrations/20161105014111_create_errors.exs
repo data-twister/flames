@@ -13,6 +13,7 @@ defmodule TestRepo.Migrations.AddFlames do
         add :line, :integer
         add :count, :integer
         add :hash, :string
+        add :resolved, :string
   
         add :incidents, :json
   

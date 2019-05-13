@@ -10,12 +10,12 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     pipeline :browser do
       plug(:accepts, ~w(html))
-      plug (:fetch_session)
-      plug (:protect_from_forgery)
-    plug (:put_secure_browser_headers)
+      plug(:fetch_session)
+      plug(:protect_from_forgery)
+      plug(:put_secure_browser_headers)
       plug(:fetch_flash)
     end
-
+add :resolved, :string
     pipeline :live do
       plug(Phoenix.LiveView.Flash)
     end
