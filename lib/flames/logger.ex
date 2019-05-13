@@ -1,7 +1,8 @@
 defmodule Flames.Logger do
-  require Logger
-  use GenEvent
+  @behaviour :gen_event
 
+  require Logger
+  
   config_message = """
   Please configure the repo Flames should use in your config.exs file.
 
@@ -11,13 +12,39 @@ defmodule Flames.Logger do
   """
   Application.get_env(:flames, :repo) || raise(config_message)
 
-  def init(_) do
-    {:ok, configure}
+  @spec init(module()) :: {:ok, term()} | {:error, term()}
+  def init(__MODULE__) do
+    init({__MODULE__, []})
+  end
+
+  @spec init({module(), list()}) :: {:ok, term()} | {:error, term()}
+  def init({__MODULE__, opts}) when is_list(opts) do
+    env = Application.get_env(:logger, __MODULE__, [])
+    opts = Keyword.merge(env, opts)
+    Application.put_env(:logger, __MODULE__, opts)
+    {:ok, configure(opts)}
+  end
+
+  def handle_call({:configure, opts}, _state) do
+    env = Application.get_env(:logger, __MODULE__, [])
+    opts = Keyword.merge(env, opts)
+    Application.put_env(:logger, __MODULE__, opts)
+    {:ok, :ok, configure(opts)}
+  end
+
+  def handle_info(_, state) do
+    # Ignore everything else 
+    {:ok, state}
+  end
+
+  def code_change(_old_vsn, state, _extra) do
+    {:ok, state}
   end
 
   def handle_event({_level, gl, _event}, state) when node(gl) != node() do
     {:ok, state}
   end
+
 
   def handle_event({level, _gl, event}, state) do
     if proceed?(event) && meet_level?(level) do
