@@ -13,6 +13,7 @@ config :flames,
       ...,
       ~r{lib/web/templates/.*(ex)$}
     ]
+  ]
 
-  config :phoenix,
+config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]

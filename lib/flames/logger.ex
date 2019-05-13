@@ -1,8 +1,6 @@
 defmodule Flames.Logger do
   @behaviour :gen_event
 
-  require Logger
-  
   config_message = """
   Please configure the repo Flames should use in your config.exs file.
 
@@ -10,46 +8,48 @@ defmodule Flames.Logger do
         repo: MyApp.Repo,
         endpoint: MyApp.Endpoint \# (Optional, if using Phoenix)
   """
+
   Application.get_env(:flames, :repo) || raise(config_message)
 
-  @spec init(module()) :: {:ok, term()} | {:error, term()}
-  def init(__MODULE__) do
-    init({__MODULE__, []})
+  def init(_) do
+    {:ok, configure()}
   end
 
-  @spec init({module(), list()}) :: {:ok, term()} | {:error, term()}
-  def init({__MODULE__, opts}) when is_list(opts) do
-    env = Application.get_env(:logger, __MODULE__, [])
-    opts = Keyword.merge(env, opts)
-    Application.put_env(:logger, __MODULE__, opts)
-    {:ok, configure(opts)}
+  def handle_call({:configure, options}, state) do
+    {:ok, :ok, configure(options)}
   end
 
-  def handle_call({:configure, opts}, _state) do
-    env = Application.get_env(:logger, __MODULE__, [])
-    opts = Keyword.merge(env, opts)
-    Application.put_env(:logger, __MODULE__, opts)
-    {:ok, :ok, configure(opts)}
-  end
-
-  def handle_info(_, state) do
-    # Ignore everything else 
+  def handle_event(:flush, state) do
     {:ok, state}
   end
 
-  def code_change(_old_vsn, state, _extra) do
+  def handle_info(_msg, state) do
     {:ok, state}
+  end
+
+  def terminate(_reason, _state) do
+    :ok
+  end
+
+  def code_change(_old, state, _extra) do
+    {:ok, state}
+  end
+
+  defp configure(options \\ []) do
+    options = Keyword.merge(options, [])
+    flames_config = Keyword.merge(Application.get_env(:logger, :flames, []), options)
+    Application.put_env(:logger, :flames, flames_config)
   end
 
   def handle_event({_level, gl, _event}, state) when node(gl) != node() do
     {:ok, state}
   end
 
-
   def handle_event({level, _gl, event}, state) do
     if proceed?(event) && meet_level?(level) do
-      Task.start(__MODULE__, :post_event, [level, event])
+      Flames.Error.Worker.post_event(level, event)
     end
+
     {:ok, state}
   end
 
@@ -59,116 +59,5 @@ defmodule Flames.Logger do
 
   defp meet_level?(lvl) do
     Logger.compare_levels(lvl, :warn) in [:gt, :eq]
-  end
-
-  def post_event(level, data) do
-    repo = Application.get_env(:flames, :repo)
-    try do
-      level
-      |> error_changeset(data)
-      |> repo.insert_or_update!()
-      |> broadcast()
-    rescue
-      error -> Logger.error(Exception.format(:error, error), flames: false)
-    catch
-      error -> Logger.error(error, flames: false)
-    end
-  end
-
-  defp broadcast(error) do
-    endpoint = Application.get_env(:flames, :endpoint)
-    endpoint && endpoint.broadcast("errors", "error", error)
-    error
-  end
-
-  defp configure(options \\ []) do
-    options = Keyword.merge(options, [])
-    flames_config = Keyword.merge(Application.get_env(:logger, :flames, []), options)
-    Application.put_env(:logger, :flames, flames_config)
-  end
-
-  @message_regex ~r/^\s*\((?<app>.*?)\) (?<file>.*?):(?<line>\d+): (?<fun>.*)$/m
-  defp error_changeset(level, {Logger, msg, {date, {hour, min, sec, _ms}}, md}) do
-    repo = Application.get_env(:flames, :repo)
-    message = normalize_message(msg)
-    hash = hash(message.full)
-    if e = Flames.Error.find_reported(hash) |> repo.one() do
-      e
-      |> Flames.Error.recur_changeset(%{
-        count: e.count + 1,
-        incidents: [%{message: message.full, timestamp: {date, {hour, min, sec}}} | Enum.map(e.incidents, &Map.from_struct/1)]
-      })
-    else
-      {file, fun, line} = analyze(message.full)
-      Flames.Error.changeset(%Flames.Error{}, %{
-        message: message.full,
-        level: to_string(level),
-        timestamp: {date, {hour, min, sec}},
-        alive: Process.alive?(md[:pid]),
-        module: md[:module] && to_string(md[:module]) || message.module,
-        function: md[:function] || fun,
-        file: md[:file] |> file_string() || file,
-        line: md[:line] || line,
-        hash: hash,
-        count: 1
-      })
-    end
-  end
-
-  defp analyze(message) do
-    case Regex.named_captures(@message_regex, message) do
-      %{"file" => file, "line" => line, "fun" => fun} -> {file, fun, line}
-      nil -> {nil, nil, nil}
-    end
-  end
-
-  defp normalize_message(full_message = [message, stack, fun | args]) when is_binary(stack) or is_list(stack) do
-    %{
-      message: IO.chardata_to_string(message),
-      stack: IO.chardata_to_string(stack),
-      module: fun |> IO.chardata_to_string() |> String.trim() |> String.replace("Function: ", ""),
-      args: args |> IO.chardata_to_string() |> String.trim() |> String.replace("Args: ", ""),
-      full: IO.chardata_to_string(full_message)
-    }
-  end
-  defp normalize_message(message) do
-    %{
-      message: IO.chardata_to_string(message),
-      stack: nil,
-      module: nil,
-      args: nil,
-      full: IO.chardata_to_string(message)
-    }
-  end
-
-  defp file_string(nil), do: nil
-  defp file_string(file) when is_binary(file) do
-    file
-    |> String.replace(File.cwd! |> String.replace("flames", ""), "")
-    |> String.split("/", trim: true)
-    |> file_string()
-    |> Enum.join("/")
-  end
-  # Heroku
-  defp file_string(["tmp", build = "build_" <> _some_number | path]), do: file_string([build | path])
-  defp file_string(["deps", lib | file]) do
-    ["(#{lib}) " | file]
-  end
-  defp file_string([lib | file]) when is_binary(lib) do
-    ["(#{lib}) " | file]
-  end
-  defp file_string(list), do: list
-
-  @args_regex ~r/Args: \[.*?\]/
-  @struct_regex ~r/%.*?{.*?}/
-  @function_regex ~r/#Function<\d+\.\d+\/\d+ in .*?\/\d{1}>/
-  @pid_regex ~r/#PID<\d+\.\d+\.\d+>/
-  @id_regex ~r/id: \d+/
-  @dates_regex ~r/#(Ecto\.)?DateTime<.*?>|#<DateTime(.*?)>/
-  @hash_ignore_regex ~r/#{@pid_regex.source}|#{@id_regex.source}|#{@dates_regex.source}|#{@function_regex.source}|#{@struct_regex.source}|#{@args_regex.source}/
-  def hash(list) when is_list(list), do: list |> hd |> hash
-  def hash(msg) when is_binary(msg) do
-    msg = msg |> String.replace(@hash_ignore_regex, "")
-    :crypto.hash(:sha256, msg) |> Base.encode16
   end
 end

@@ -5,8 +5,8 @@ defmodule Flames.Error.Incident do
   @derive {Poison.Encoder, except: [:__meta__, :error]}
 
   embedded_schema do
-    field :message, :string
-    field :timestamp, :utc_datetime
+    field(:message, :string)
+    field(:timestamp, :utc_datetime)
 
     timestamps
   end
@@ -18,5 +18,4 @@ defmodule Flames.Error.Incident do
     model
     |> cast(params, @required, @optional)
   end
-
 end

@@ -6,7 +6,7 @@ defmodule Flames do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
     require Logger
-    Logger.debug "Starting flames!", flames: true
+    Logger.debug("Starting flames!", flames: true)
     # Define workers and child supervisors to be supervised
     children = [
       supervisor(Task.Supervisor, [])

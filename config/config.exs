@@ -9,5 +9,5 @@ config :flames,
     signing_salt: "YOUR_SECRET"
   ]
 
-  config :phoenix,
+config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]

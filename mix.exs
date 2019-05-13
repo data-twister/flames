@@ -7,14 +7,14 @@ defmodule Flames.Mixfile do
       app: :flames,
       version: @version,
       elixir: "~> 1.2",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: compilers(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: compilers(Mix.env()),
       name: "flames",
       description: description,
       package: package,
       source_url: "https://github.com/data-twister/flames",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps,
       aliases: aliases
     ]
@@ -22,24 +22,26 @@ defmodule Flames.Mixfile do
 
   def application do
     [
-      applications: apps(Mix.env),
+      applications: apps(Mix.env()),
       mod: {Flames, []}
     ]
   end
 
   # Specifies which paths to compile per environment
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp apps(_), do: apps
+
   defp apps do
-    [:logger, :phoenix ]
+    [:logger, :phoenix]
   end
 
   # Need phoenix compiler to compile our views.
   defp compilers(:test) do
     [:phoenix | compilers]
   end
+
   defp compilers(_) do
     if Code.ensure_loaded?(Phoenix.HTML) do
       [:phoenix | compilers]
@@ -47,13 +49,13 @@ defmodule Flames.Mixfile do
       compilers
     end
   end
+
   defp compilers do
-    [:phoenix] ++ Mix.compilers
+    [:phoenix] ++ Mix.compilers()
   end
 
   defp deps do
     [
-
       {:ecto, ">= 2.0.0"},
       {:phoenix, ">= 1.4.0"},
       {:phoenix_html, ">= 2.3.0"},
@@ -85,19 +87,21 @@ defmodule Flames.Mixfile do
   end
 
   defp aliases do
-    [publish: ["build.assets", "hex.publish", "hex.publish docs", "tag"],
-     "build.assets": &npm_build/1,
-     tag: &tag_release/1]
+    [
+      publish: ["build.assets", "hex.publish", "hex.publish docs", "tag"],
+      "build.assets": &npm_build/1,
+      tag: &tag_release/1
+    ]
   end
 
   defp tag_release(_) do
-    Mix.shell.info "Tagging release as #{@version}"
+    Mix.shell().info("Tagging release as #{@version}")
     System.cmd("git", ["tag", "-a", "v#{@version}", "-m", "v#{@version}"])
     System.cmd("git", ["push", "--tags"])
   end
 
   defp npm_build(_) do
-    Mix.shell.info([IO.ANSI.cyan, "Building assets...", IO.ANSI.default_color])
+    Mix.shell().info([IO.ANSI.cyan(), "Building assets...", IO.ANSI.default_color()])
     System.cmd("npm", ["run", "build"])
   end
 end
