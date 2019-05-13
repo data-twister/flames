@@ -50,7 +50,7 @@ module.exports = (env, options) => ({
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'ycss/app.css' }),
+    new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: OUTPUT_DIR }])
   ]
 });
@@ -98,7 +98,7 @@ module.exports = (env, options) => ({
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: 'css/flames-frontend.css' }),
+      new MiniCssExtractPlugin({ filename: '../css/flames-frontend.css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: outputDir }]),
       new webpack.ProvidePlugin({
         $: "jquery",
