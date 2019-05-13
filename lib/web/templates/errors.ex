@@ -15,7 +15,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     end
 
     def mount(_session, socket) do
-      {:ok, assign(socket, errors: "error!")}
+      {:ok, assign(socket, errors: "Your application is error free!")}
     end
 
     def handle_event("add-errors", %{"q" => errors}, socket) do

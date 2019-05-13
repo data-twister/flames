@@ -41,27 +41,7 @@ defmodule Flames.Web do
 
   use Plug.Builder
 
-  view = Application.get_env(:flames, :live_view)
-
-  value =
-    case view do
-      [signing_salt: secret] -> String.trim(secret)
-      _ -> nil
-    end
-
-  case value do
-    nil ->
-      plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
-
-    "" ->
-      plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
-
-    "YOUR_SECRET" ->
-      plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
-
-    _ ->
-      plug(Plug.Static, at: "/", from: :flames, only: ~w(css  png))
-  end
+  plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
 
   # Serves static files, otherwises passes connection to Flames.Router.
   plug(Flames.Router)

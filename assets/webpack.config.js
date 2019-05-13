@@ -1,5 +1,5 @@
 const path = require('path');
-const mode = require('glob');
+const glob = require('glob');
 const webpack = require('webpack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -70,7 +70,7 @@ module.exports = (env, options) => ({
     ],
     output: {
       path: OUTPUT_DIR,
-      filename: 'flames-frontend.js'
+      filename: 'app.js'
     },
     module: {
       rules: [

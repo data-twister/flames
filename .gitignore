@@ -20,3 +20,5 @@ erl_crash.dump
 .idea/
 dummy/
 *.iml
+/assets/node_modules
+.vscode
