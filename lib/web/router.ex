@@ -49,6 +49,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
         false ->
           pipe_through(:live)
+          
           get("/", LiveController, :index)
           get("/:id", LiveController, :show)
           delete("/:id", LiveController, :delete)
