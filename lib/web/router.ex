@@ -2,8 +2,12 @@ if Code.ensure_loaded?(Phoenix.Router) do
   defmodule Flames.Router do
     @moduledoc """
     """
-   
+    # use Phoenix.Router
     use Flames.Phoenix, :router
+    # import Phoenix.LiveView.Router
+    # import Phoenix.LiveView.Router
+
+    # use Phoenix.Router
 
     result = Application.get_env(:flames, :backend) || "liveview"
 

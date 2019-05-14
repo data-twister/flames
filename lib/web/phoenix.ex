@@ -5,11 +5,14 @@ defmodule Flames.Phoenix do
     end
   end
 
-  def router do
+    def router do
     quote do
       use Phoenix.Router
+
       import Plug.Conn
+
       import Phoenix.Controller
+      
       # import Phoenix.LiveView.Router
     end
   end
@@ -17,7 +20,7 @@ defmodule Flames.Phoenix do
   def view do
     quote do
       use Phoenix.View, root: "lib/web/templates"
-      # Import convenience functions from controllers
+      
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       use Phoenix.HTML
@@ -31,7 +34,9 @@ defmodule Flames.Phoenix do
   def controller do
     quote do
       use Phoenix.Controller
+
       alias Flames.Router.Helpers, as: Routes
+
       import Ecto.Query
     end
   end
