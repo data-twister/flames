@@ -6,7 +6,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     alias Phoenix.LiveView
 
     def interface(conn, _) do
-      render(conn, "interface.html")
+      LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
     end
 
     def index(conn, _) do
