@@ -2,7 +2,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
   defmodule Flames.Router do
     @moduledoc """
     """
-    
+
     use Flames.Phoenix, :router
 
     result = Application.get_env(:flames, :backend) || "liveview"
@@ -42,19 +42,17 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
       case(backend == "react") do
         true ->
-          get("/", ErrorsController, :interface)
-          get("/errors", ErrorsController, :index)
-          get("/errors/:id", ErrorsController, :show)
-          delete("/errors/:id", ErrorsController, :delete)
-          get("/errors/search", ErrorsController, :search)
+          get("/", ErrorsController, :index)
+          get("/:id", ErrorsController, :show)
+          delete("/:id", ErrorsController, :delete)
+          get("/search", ErrorsController, :search)
 
         false ->
           pipe_through(:live)
-          get("/", LiveController, :interface)
-          get("/errors", LiveController, :index)
-          get("/errors/:id", LiveController, :show)
-          delete("/errors/:id", LiveController, :delete)
-          get("/errors/search", LiveController, :search)
+          get("/", LiveController, :index)
+          get("/:id", LiveController, :show)
+          delete("/:id", LiveController, :delete)
+          get("/search", LiveController, :search)
       end
     end
   end
