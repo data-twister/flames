@@ -3,7 +3,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
     @moduledoc """
     """
 
-    use Flames.Phoenix, :router
+    use Phoenix.Router
     
 
     result =  "live-view"
@@ -27,7 +27,6 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     pipeline :api do
       plug(:accepts, ["json"])
-      plug(Flames.Plug.React)
     end
 
     scope "/", Flames do
