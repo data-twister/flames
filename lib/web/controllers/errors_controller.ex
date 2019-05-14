@@ -8,7 +8,6 @@ if Code.ensure_loaded?(Phoenix.Controller) do
       render(conn, "index.html")
     end
 
-
     def index(conn, _params) do
       repo = Application.get_env(:flames, :repo)
       errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))

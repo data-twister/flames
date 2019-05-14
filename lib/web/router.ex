@@ -2,10 +2,15 @@ if Code.ensure_loaded?(Phoenix.Router) do
   defmodule Flames.Router do
     @moduledoc """
     """
+     #use Phoenix.Router
+     use Flames.Web, :router
+     #import Phoenix.LiveView.Router
+     #import Phoenix.LiveView.Router
 
-    use Phoenix.Router
+     #use Phoenix.Router
 
-    result = Application.get_env(:flames, :backend)
+    result = Application.get_env(:flames, :backend) || "liveview"
+
     backend = String.downcase(result)
 
     def static_path(%Plug.Conn{script_name: script}, path),
@@ -33,32 +38,32 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
       get("/errors/websocket", LiveController, :index)
       get("/websocket", LiveController, :index)
-      case(backend = "react") do
-        true ->  get("/", Controller, :interface)
-        false ->  get("/", LiveController, :interface)
+
+      case(backend == "react") do
+        true -> get("/", ErrorsController, :interface)
+        false -> get("/", LiveController, :interface)
       end
-     
     end
 
     scope "/api", Flames do
       pipe_through(:api)
-      
-      get("/", ErrorsController, :interface)
-      get("/errors", ErrorsController, :index)
-      get("/errors/:id", ErrorsController, :show)
-      delete("/errors/:id", ErrorsController, :delete)
-      get("/errors/search", ErrorsController, :search)
-    end
 
-    scope "/live", Flames do
-      pipe_through(:api)
-      pipe_through(:live)
+      case(backend == "react") do
+        true ->
+          get("/", ErrorsController, :interface)
+          get("/errors", ErrorsController, :index)
+          get("/errors/:id", ErrorsController, :show)
+          delete("/errors/:id", ErrorsController, :delete)
+          get("/errors/search", ErrorsController, :search)
 
-      get("/", LiveController, :interface)
-      get("/errors", LiveController, :index)
-      get("/errors/:id", LiveController, :show)
-      delete("/errors/:id", LiveController, :delete)
-      get("/errors/search", LiveController, :search)
+        false ->
+          pipe_through(:live)
+          get("/", LiveController, :interface)
+          get("/errors", LiveController, :index)
+          get("/errors/:id", LiveController, :show)
+          delete("/errors/:id", LiveController, :delete)
+          get("/errors/search", LiveController, :search)
+      end
     end
   end
 end

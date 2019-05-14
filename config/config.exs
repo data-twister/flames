@@ -5,9 +5,11 @@ use Mix.Config
 config :flames,
   repo: FakeRepo,
   endpoint: FakeEndpoint,
-  live_view: [
-    signing_salt: "YOUR_SECRET"
-  ]
+  backend: "Liveview"
 
 config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]
+
+## add to endpoint   live_view: [
+# signing_salt: "YOUR_SECRET"
+# ]

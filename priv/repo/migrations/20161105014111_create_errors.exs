@@ -15,7 +15,7 @@ defmodule TestRepo.Migrations.AddFlames do
         add :hash, :string
         add :resolved, :string
   
-        add :incidents, :json
+        add :incidents, Flames.Error.Incident
   
         timestamps()
       end

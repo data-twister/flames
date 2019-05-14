@@ -29,10 +29,13 @@ The package can be installed as:
     config :flames,
       repo: MyPhoenixApp.Repo,
       endpoint: MyPhoenixApp.Endpoint,
+      backend: "liveview",
       table: "errors" # Optional, defaults to "errors"
 
     config :logger,
       backends: [:console, Flames.Logger]
+
+    config:  MyPhoenixApp.Endpoint,
        live_view: [
     signing_salt: "YOUR_SECRET"
   ]
@@ -77,13 +80,13 @@ The package can be installed as:
 
   Router (You should place this under a secure pipeline and secure it yourself)
   ```elixir
-  forward "/errors", Flames.Web
+  forward "/system/errors", Flames.Web
   ```
 
   Endpoint (Make sure this is the full path, adding `/socket` to the end)
   ```elixir
   socket "/errors/socket", Flames.UserSocket
-  socket "/errors/socket/live", Phoenix.LiveView.Socket
+  socket("/errors/websocket", Phoenix.LiveView.Socket)
   ```
 or
   ```elixir

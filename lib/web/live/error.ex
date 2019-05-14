@@ -1,5 +1,5 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
-  defmodule Flames.Template.Error do
+  defmodule Flames.Live.Error do
     @moduledoc false
 
     use Phoenix.LiveView
@@ -19,7 +19,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
           message
         </pre>
       </div>
-    </Layout>
+      </Layout>
       """
     end
 
