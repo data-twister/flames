@@ -1,10 +1,17 @@
 defmodule Flames.Web do
-  @moduledoc false
 
-  def view do
+   @moduledoc false
+
+   def channel do
+    quote do
+      use Phoenix.Channel
+    end
+  end
+
+   def view do
     quote do
       use Phoenix.View, root: "lib/web/templates"
-      # Import convenience functions from controllers
+     
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       use Phoenix.HTML
@@ -18,14 +25,10 @@ defmodule Flames.Web do
   def controller do
     quote do
       use Phoenix.Controller
-      alias Flames.Router.Helpers, as: Routes
-      import Ecto.Query
-    end
-  end
 
-  def channel do
-    quote do
-      use Phoenix.Channel
+      alias Flames.Router.Helpers, as: Routes
+
+      import Ecto.Query
     end
   end
 
@@ -41,4 +44,11 @@ defmodule Flames.Web do
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
+
+  # Serves static files, otherwises passes connection to Flames.Router.
+  use Plug.Builder
+
+  plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
+
+  plug(Flames.Router)
 end

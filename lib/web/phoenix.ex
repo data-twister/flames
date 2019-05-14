@@ -1,7 +1,16 @@
-defmodule Flames.View do
+defmodule Flames.Phoenix do
   def channel do
     quote do
       use Phoenix.Channel
+    end
+  end
+
+  def router do
+    quote do
+      use Phoenix.Router
+      import Plug.Conn
+      import Phoenix.Controller
+      # import Phoenix.LiveView.Router
     end
   end
 
@@ -31,10 +40,4 @@ defmodule Flames.View do
     apply(__MODULE__, which, [])
   end
 
-  # Serves static files, otherwises passes connection to Flames.Router.
-  use Plug.Builder
-
-  plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
-
-  plug(Flames.Router)
 end
