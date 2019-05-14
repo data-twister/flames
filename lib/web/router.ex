@@ -33,7 +33,11 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:browser)
       pipe_through(:live)
 
-      get("/", ErrorsController, :interface)
+      case(backend == "react") do
+        true ->
+        get("/", ErrorsController, :interface)
+        false ->  get("/", LiveController, :interface)
+        end
 
       get("/errors/websocket", LiveController, :index)
       get("/socket/websocket", LiveController, :index)
