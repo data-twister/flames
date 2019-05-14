@@ -6,7 +6,7 @@ defmodule Flames.Web do
     quote do
       use Phoenix.Channel
       
-      import Flames.Gettext
+     # import Flames.Gettext
     end
   end
 
@@ -20,11 +20,11 @@ defmodule Flames.Web do
 
       import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
 
-       import Flames.ErrorHelpers
+      # import Flames.ErrorHelpers
 
-       import Flames.Gettext
+      # import Flames.Gettext
 
-      alias Flames.Router.Helpers, as: Routes
+      # alias Flames.Router.Helpers, as: Routes
     end
   end
 
@@ -32,11 +32,11 @@ defmodule Flames.Web do
     quote do
       use Phoenix.Controller
 
-       import Plug.Conn
+       # import Plug.Conn
 
-       import Flames.Gettext
+       # import Flames.Gettext
 
-      alias Flames.Router.Helpers, as: Routes
+      # alias Flames.Router.Helpers, as: Routes
 
       import Ecto.Query
     end
