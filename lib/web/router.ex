@@ -39,10 +39,6 @@ if Code.ensure_loaded?(Phoenix.Router) do
       get("/errors/websocket", LiveController, :index)
       get("/websocket", LiveController, :index)
 
-      case(backend == "react") do
-        true -> get("/", ErrorsController, :interface)
-        false -> get("/", LiveController, :interface)
-      end
     end
 
     scope "/api", Flames do
