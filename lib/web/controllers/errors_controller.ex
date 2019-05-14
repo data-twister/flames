@@ -5,7 +5,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     use Flames.Web, :controller
 
     def interface(conn, _params) do
-      render(conn, "interface.html")
+      render(conn, "index.html")
     end
 
     def index(conn, _params) do
