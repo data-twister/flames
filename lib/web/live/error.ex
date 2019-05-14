@@ -4,6 +4,13 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     use Phoenix.LiveView
 
+    def moduleLine(error) do
+      "<span>
+      <h5></h5>
+      <h6></h6>
+    </span>"
+    end
+
     def render(assigns) do
       ~L"""
       <Layout>
@@ -14,7 +21,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       </div>
       <div className="row">
         <span>Last occurance: @error.timestamp</span>
-        @error.moduleLine
+        moduleLine(@error)
         <pre>
         @error.message
         </pre>

@@ -4,6 +4,18 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     use Phoenix.LiveView
 
+    def levelColor(error) do
+      nil
+    end
+
+    def renderFileInfo(error) do
+      nil
+    end
+
+    def rowColor(error) do
+      nil
+    end
+
     def render(assigns) do
       ~L"""
       <div>
@@ -12,7 +24,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
       Enum.each(@errors, fn(_) -> 
         '<div key={error.id} className={`${this.rowColor(error)} info-row error-row row`} onClick={rowClick}>
-        <span className="col-xs-1 level"><span className={`label ${this.levelColor(error)}`}>{error.level}</span></span>
+        <span className="col-xs-1 level"><span class={`label ${this.levelColor(error)}`}>{error.level}</span></span>
         <span className="col-xs-5 message">{error.message}</span>
         <span className="col-xs-3 file">{this.renderFileInfo(error)}</span>
         <span className="col-xs-1 count">{error.count}</span>
