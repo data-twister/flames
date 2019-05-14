@@ -6,7 +6,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     alias Phoenix.LiveView
 
     def interface(conn, _) do
-      render(conn, "interface.html")
+      render(conn, "app.html")
     end
 
     def index(conn, _) do
