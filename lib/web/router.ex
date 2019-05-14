@@ -5,6 +5,9 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     use Phoenix.Router
 
+    result = Application.get_env(:flames, :backend)
+    backend = String.downcase(result)
+
     def static_path(%Plug.Conn{script_name: script}, path),
       do: "/" <> Enum.join(script, "/") <> path
 
@@ -30,7 +33,11 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
       get("/errors/websocket", LiveController, :index)
       get("/websocket", LiveController, :index)
-      get("/", LiveController, :interface)
+      case(backend = "react") do
+        true ->  get("/", Controller, :interface)
+        false ->  get("/", LiveController, :interface)
+      end
+     
     end
 
     scope "/api", Flames do
