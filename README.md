@@ -1,4 +1,4 @@
-# Flames-liveview [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
+# Flames [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
 
 ![Example Dashboard](example.png)
 
