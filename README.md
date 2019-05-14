@@ -1,4 +1,4 @@
-# Flames [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
+# Flames-liveview [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
 
 ![Example Dashboard](example.png)
 
@@ -29,7 +29,6 @@ The package can be installed as:
     config :flames,
       repo: MyPhoenixApp.Repo,
       endpoint: MyPhoenixApp.Endpoint,
-      backend: "liveview",
       table: "errors" # Optional, defaults to "errors"
 
     config :logger,
@@ -44,7 +43,7 @@ The package can be installed as:
   template_engines: [leex: Phoenix.LiveView.Engine]
     ```
 
-  4. Add the following migration:
+  1. Add the following migration:
 
   ```elixir
   defmodule MyApp.Repo.Migrations.CreateFlamesTable do
@@ -55,7 +54,7 @@ The package can be installed as:
       create table(:errors) do
         add :message, :text
         add :level, :string
-        add :timestamp, :datetime # or :utc_datetime if you're using the latest ecto
+        add :timestamp, :native_datetime 
         add :alive, :boolean
         add :module, :string
         add :function, :string
@@ -63,11 +62,11 @@ The package can be installed as:
         add :line, :integer
         add :count, :integer
         add :hash, :string
-        add :resolved, :boolean, default: false
+        add :resolved, :string
 
-        add :incidents, :json
+        add :incidents, Flames.Error.Incident
 
-        timestamps
+        timestamps()
       end
 
       create index(:errors, [:hash])
@@ -76,7 +75,7 @@ The package can be installed as:
   end
   ```
 
-  5. (Optional) Add it to your Phoenix Router and Phoenix Endpoint for live updates:
+  1. (Optional) Add it to your Phoenix Router and Phoenix Endpoint for live updates:
 
   Router (You should place this under a secure pipeline and secure it yourself)
   ```elixir
@@ -92,5 +91,7 @@ or
   ```elixir
  use Flames.Endpoint
   ```
+
+  2. you will need to change the endpoint in app.js to match your live endpoint /errors is the default
 
   Visit http://localhost:4000/errors (or wherever you mounted it) to see a live stream of errors.

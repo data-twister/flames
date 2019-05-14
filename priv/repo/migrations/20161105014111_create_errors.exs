@@ -1,4 +1,4 @@
-defmodule TestRepo.Migrations.AddFlames do
+defmodule FlamesRepo.Migrations.AddFlames do
     use Ecto.Migration
   
     def change do
