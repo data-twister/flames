@@ -5,12 +5,11 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     use Phoenix.LiveView
 
     def render(assigns) do
-
       ~L"""
       <div>
       <div id="errors" className="table table-stripped table-hover">
       <%= 
-      
+
       Enum.each(@errors, fn(_) -> 
         '<div key={error.id} className={`${this.rowColor(error)} info-row error-row row`} onClick={rowClick}>
         <span className="col-xs-1 level"><span className={`label ${this.levelColor(error)}`}>{error.level}</span></span>
@@ -25,7 +24,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       %>
       </div>
       </div>
-     
+
       """
     end
 

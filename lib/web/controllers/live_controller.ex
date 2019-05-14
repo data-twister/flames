@@ -17,7 +17,6 @@ if Code.ensure_loaded?(Phoenix.Controller) do
         true -> LiveView.Controller.live_render(conn, Flames.Live.Errors, session: errors)
         false -> LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
       end
-
     end
 
     def show(conn, %{"id" => error_id}) do
