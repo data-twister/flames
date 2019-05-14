@@ -5,7 +5,7 @@ defmodule TestRepo.Migrations.AddFlames do
       create table(:errors) do
         add :message, :text
         add :level, :string
-        add :timestamp, :utc_datetime
+        add :timestamp, :date
         add :alive, :boolean
         add :module, :string
         add :function, :string
