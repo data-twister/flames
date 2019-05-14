@@ -11,6 +11,8 @@ if Code.ensure_loaded?(Phoenix.View) && Code.ensure_loaded?(Phoenix.HTML) do
     def render("show.json", %{error: error}) do
       %{error: error}
     end
-  end
+
   end
 end
+
+

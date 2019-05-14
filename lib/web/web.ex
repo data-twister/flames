@@ -5,6 +5,8 @@ defmodule Flames.Web do
    def channel do
     quote do
       use Phoenix.Channel
+      
+      import Flames.Gettext
     end
   end
 
@@ -18,6 +20,10 @@ defmodule Flames.Web do
 
       import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
 
+       import Flames.ErrorHelpers
+
+       import Flames.Gettext
+
       alias Flames.Router.Helpers, as: Routes
     end
   end
@@ -26,9 +32,25 @@ defmodule Flames.Web do
     quote do
       use Phoenix.Controller
 
+       import Plug.Conn
+
+       import Flames.Gettext
+
       alias Flames.Router.Helpers, as: Routes
 
       import Ecto.Query
+    end
+  end
+
+  def router do
+    quote do
+      use Phoenix.Router
+
+      import Plug.Conn
+
+      import Phoenix.Controller
+
+      import Phoenix.LiveView.Router
     end
   end
 

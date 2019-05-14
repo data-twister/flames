@@ -4,8 +4,9 @@ if Code.ensure_loaded?(Phoenix.Router) do
     """
 
     use Flames.Phoenix, :router
+    
 
-    result = Application.get_env(:flames, :backend) || "liveview"
+    result =  "live-view"
 
     backend = String.downcase(result)
 
@@ -26,6 +27,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     pipeline :api do
       plug(:accepts, ["json"])
+      plug(Flames.Plug.React)
     end
 
     scope "/", Flames do
@@ -42,18 +44,18 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
       case(backend == "react") do
         true ->
-          get("/", ErrorsController, :index)
-          get("/:id", ErrorsController, :show)
-          delete("/:id", ErrorsController, :delete)
-          get("/search", ErrorsController, :search)
+          get("/errors/", ErrorsController, :index)
+          get("/errors/:id", ErrorsController, :show)
+          delete("/errors/:id", ErrorsController, :delete)
+          get("/errors/search", ErrorsController, :search)
 
         false ->
           pipe_through(:live)
           
-          get("/", LiveController, :index)
-          get("/:id", LiveController, :show)
-          delete("/:id", LiveController, :delete)
-          get("/search", LiveController, :search)
+          get("/errors/", LiveController, :index)
+          get("/errors/:id", LiveController, :show)
+          delete("/errors/:id", LiveController, :delete)
+          get("/errors/search", LiveController, :search)
       end
     end
   end

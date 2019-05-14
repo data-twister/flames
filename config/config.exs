@@ -4,8 +4,7 @@ use Mix.Config
 
 config :flames,
   repo: FakeRepo,
-  endpoint: FakeEndpoint,
-  backend: "Liveview"
+  endpoint: FakeEndpoint
 
 config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]
