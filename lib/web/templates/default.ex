@@ -1,5 +1,5 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
-  defmodule Flames.Template.Free do
+  defmodule Flames.Template.Default do
     @moduledoc false
 
     use Phoenix.LiveView
@@ -10,11 +10,9 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         <div>
         <div className="jumbotron text-center info-row">
       <h1>
-      <%= @session.title %>
+      Loading ...
       </h1>
-      <h4>
-      <%= @session.data %>
-      </h4>
+      
       </div>
        
         </div>
@@ -23,7 +21,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     end
 
     def mount(_session, socket) do
-      {:ok, assign(socket, session: %{title: "&nbsp;Hooray!&nbsp;", data: "Your application is error free!"})}
+      {:ok, assign(socket, session: nil)}
     end
   end
 end

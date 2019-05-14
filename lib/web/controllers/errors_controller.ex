@@ -3,44 +3,11 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     @moduledoc false
 
     use Flames.Web, :controller
-    alias Phoenix.LiveView
 
-    def interface(conn, _) do
-      repo = Application.get_env(:flames, :repo)
-      errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))
-      case Enum.count(errors) > 1 do
-        true ->  LiveView.Controller.live_render(conn, Flames.Template.Errors, session: errors)
-        false ->  LiveView.Controller.live_render(conn, Flames.Template.Free, session: [])
-      end
-     
+    def interface(conn, _params) do
+      render(conn, "index.html")
     end
 
-    def live_index(conn, _) do
-      repo = Application.get_env(:flames, :repo)
-      errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))
-      case Enum.count(errors) > 1 do
-        true ->  LiveView.Controller.live_render(conn, Flames.Template.Errors, session: errors)
-        false ->  LiveView.Controller.live_render(conn, Flames.Template.Free, session: [])
-      end
-    end
-
-    def live_show(conn, %{"id" => error_id}) do
-      repo = Application.get_env(:flames, :repo)
-      error = repo.one(from(e in Flames.Error, where: e.id == ^error_id, limit: 1))
-      case Enum.count(error) > 1 do
-        true ->  LiveView.Controller.live_render(conn, Flames.Template.Error, session: error)
-        false ->  LiveView.Controller.live_render(conn, Flames.Template.Free, session: [])
-      end
-    end
-
-    def live_search(conn, %{"term" => term}) do
-      # TODO: Finish
-      results = term |> String.split(" ")
-      case Enum.count(results) > 1 do
-        true ->  LiveView.Controller.live_render(conn, Flames.Template.Errors, session: results)
-        false ->  LiveView.Controller.live_render(conn, Flames.Template.Free, session: [])
-      end
-    end
 
     def index(conn, _params) do
       repo = Application.get_env(:flames, :repo)

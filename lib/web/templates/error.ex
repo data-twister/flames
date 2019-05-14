@@ -6,11 +6,20 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     def render(assigns) do
       ~L"""
-      <div>
-        <div>
-        <%= @error %>
+      <Layout>
+      <div className="row">
+        <div className="col-xs-12">
+          <Link to="/">≪ Back</Link>
         </div>
       </div>
+      <div className="row">
+        <span>Last occurance: {incidents && incidents[0] && incidents[0].timestamp || this.state.error.timestamp}</span>
+        {moduleLine}
+        <pre>
+          message
+        </pre>
+      </div>
+    </Layout>
       """
     end
 

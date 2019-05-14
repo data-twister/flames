@@ -21,11 +21,11 @@ if Code.ensure_loaded?(Phoenix.Socket) do
     # See `Phoenix.Token` documentation for examples in
     # performing token verification on connect.
     @endpoint Application.get_env(:flames, :endpoint)
-    def connect(%{"token" => token}, socket) do
-      # Verify they hit the protected interface
-      {:ok, "flames"} = Phoenix.Token.verify(@endpoint, "flames", token)
-      {:ok, socket}
-    end
+    # def connect(%{"token" => token}, socket) do
+    #   # Verify they hit the protected interface
+    #   {:ok, "flames"} = Phoenix.Token.verify(@endpoint, "flames", token)
+    #   {:ok, socket}
+    # end
 
     # Socket id's are topics that allow you to identify all sockets for a given user:
     #
