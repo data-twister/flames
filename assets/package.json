@@ -9,16 +9,9 @@
   "dependencies": {
     "bootstrap": "^3.3.4",
     "glob": "^7.1.4",
-    "jquery": "^3.0.0",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "react": "^15.1.0",
-    "react-bootstrap": "^0.29.4",
-    "react-dom": "^15.1.0",
-    "react-flip-move": "^2.4.0",
-    "react-router": "^2.4.1",
-    "underscore": "^1.8.3"
+    "phoenix_live_view": "file:../deps/phoenix_live_view" 
   },
   "devDependencies": {
     "webpack": "4.4.0",
@@ -34,12 +27,12 @@
     "url-loader": "^1.1.0",
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
-    "react-hot-loader": "^4.8.4",
     "copy-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "bootstrap-sass": "^3.3.6",
     "node-sass": "4.12.0"
+    
   }
 }
