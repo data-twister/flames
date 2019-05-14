@@ -13,10 +13,10 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         </div>
       </div>
       <div className="row">
-        <span>Last occurance: {incidents && incidents[0] && incidents[0].timestamp || this.state.error.timestamp}</span>
-        {moduleLine}
+        <span>Last occurance: @error.timestamp</span>
+        @error.moduleLine
         <pre>
-          message
+        @error.message
         </pre>
       </div>
       </Layout>
@@ -29,7 +29,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     def handle_event("add-error", %{"q" => error}, socket) do
       case error do
-        "" -> {:noreply, assign(socket, :error, "")}
+        "" -> {:noreply, assign(socket, :error, nil)}
         _ -> {:noreply, assign(socket, :error, error)}
       end
     end

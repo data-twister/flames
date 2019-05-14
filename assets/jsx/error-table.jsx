@@ -90,7 +90,7 @@ class ErrorTable extends React.Component {
     return (
       <div className="jumbotron text-center info-row">
         <h1>
-          🎉🎈🎊&nbsp;Hooray!&nbsp;🎊🎈🎉
+          Hooray!
         </h1>
         <h4>
           Your application is error free!
