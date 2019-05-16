@@ -4,8 +4,9 @@ if Code.ensure_loaded?(Phoenix.Router) do
     """
 
     use Phoenix.Router
+    
 
-    result = "live-view"
+    result =  "live-view"
 
     backend = String.downcase(result)
 
@@ -32,31 +33,22 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:browser)
       pipe_through(:live)
 
+      get("/", ErrorsController, :index)
+      get("/errors/websocket", ErrorsController, :index)
       get("/socket/websocket", ErrorsController, :index)
+      get("/websocket", ErrorsController, :index)
 
-      get("/errors/websocket", LiveController, :index)
-      get("/socket/websocket", LiveController, :index)
-      get("/websocket", LiveController, :index)
     end
 
     scope "/api", Flames do
       pipe_through(:api)
-
-      case(backend == "react") do
-        true ->
-          get("/errors/", ErrorsController, :index)
-          get("/errors/:id", ErrorsController, :show)
-          delete("/errors/:id", ErrorsController, :delete)
-          get("/errors/search", ErrorsController, :search)
-
-        false ->
-          pipe_through(:live)
-
-          get("/errors/", LiveController, :index)
-          get("/errors/:id", LiveController, :show)
-          delete("/errors/:id", LiveController, :delete)
-          get("/errors/search", LiveController, :search)
-      end
+      pipe_through(:live)
+          
+      get("/errors/", ErrorsController, :index)
+      get("/errors/:id", ErrorsController, :show)
+      delete("/errors/:id", ErrorsController, :delete)
+      get("/errors/search", ErrorsController, :search)
+      
     end
   end
 end
