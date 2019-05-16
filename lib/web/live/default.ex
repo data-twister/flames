@@ -2,6 +2,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
   defmodule Flames.Live.Default do
     @moduledoc false
 
+
     use Phoenix.LiveView
 
     def render(assigns) do
@@ -13,6 +14,8 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       </div>
       """
     end
+
+    # def render(assigns), do: Default.render("index.html", assigns)
 
     def mount(_session, socket) do
       {:ok, assign(socket, session: nil)}

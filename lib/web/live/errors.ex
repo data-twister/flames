@@ -40,6 +40,8 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       """
     end
 
+    # def render(assigns), do: Errors.render("index.html", assigns)
+
     def mount(_session, socket) do
       {:ok, assign(socket, errors: [])}
     end

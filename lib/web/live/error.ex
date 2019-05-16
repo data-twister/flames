@@ -4,6 +4,8 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     use Phoenix.LiveView
 
+    # def render(assigns), do: Error.render("index.html", assigns)
+
     def moduleLine(error) do
       "<span>
       <h5></h5>

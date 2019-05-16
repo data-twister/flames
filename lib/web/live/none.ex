@@ -17,6 +17,8 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       """
     end
 
+    # def render(assigns), do: None.render("index.html", assigns)
+
     def mount(_session, socket) do
       {:ok, assign(socket, session: nil)}
     end

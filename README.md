@@ -35,6 +35,8 @@ The package can be installed as:
       backends: [:console, Flames.Logger]
 
     config:  MyPhoenixApp.Endpoint,
+    render_errors: [view: MyPhoenixApp.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: MyPhoenixApp.PubSub, adapter: Phoenix.PubSub.PG2],
        live_view: [
     signing_salt: "YOUR_SECRET"
   ]

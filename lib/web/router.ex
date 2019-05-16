@@ -28,10 +28,10 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:browser)
       pipe_through(:live)
 
-      get("/", ErrorsController, :interface)
-      get("/errors/websocket", ErrorsController, :index)
-      get("/socket/websocket", ErrorsController, :index)
-      get("/websocket", ErrorsController, :index)
+      get("/", Flames.Live.Default)
+      get("/errors/websocket", Flames.Live.Errors)
+      get("/socket/websocket", Flames.Live.Errors)
+      get("/websocket", Flames.Live.Errors)
 
     end
 
@@ -39,10 +39,10 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:api)
       pipe_through(:live)
           
-      get("/errors/", ErrorsController, :index)
-      get("/errors/:id", ErrorsController, :show)
-      delete("/errors/:id", ErrorsController, :delete)
-      get("/errors/search", ErrorsController, :search)
+      get("/errors/", Flames.Live.Errors)
+      get("/errors/:id", Flames.Live.Error)
+      delete("/errors/:id", Flames.Live.Error)
+      get("/errors/search", Flames.Live.Search)
       
     end
   end
