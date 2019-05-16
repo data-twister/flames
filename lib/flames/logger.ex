@@ -15,17 +15,11 @@ defmodule Flames.Logger do
     {:ok, configure()}
   end
 
-  def init({__MODULE__, name}) do
-    {:ok, configure(name, [])}
-  end
 
   def handle_call({:configure, options}, state) do
     {:ok, :ok, configure(options)}
   end
 
-  def handle_call({:configure, opts}, %{name: name} = state) do
-    {:ok, :ok, configure(name, opts, state)}
-  end
 
   def handle_event(:flush, state) do
     {:ok, state}
