@@ -13,7 +13,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     end
 
     def index(conn, _) do
-      IO.inspect(resp, label: "liveview idx")
+      IO.inspect(conn, label: "liveview idx")
       repo = Application.get_env(:flames, :repo)
       errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))
 
