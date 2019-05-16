@@ -23,7 +23,7 @@ defmodule Flames.Logger do
     {:ok, :ok, configure(options)}
   end
 
-  def handle_call({:configure, opts}, %{name: name}=state) do
+  def handle_call({:configure, opts}, %{name: name} = state) do
     {:ok, :ok, configure(name, opts, state)}
   end
 
@@ -48,8 +48,6 @@ defmodule Flames.Logger do
     flames_config = Keyword.merge(Application.get_env(:logger, :flames, []), options)
     Application.put_env(:logger, :flames, flames_config)
   end
-
-
 
   def handle_event({_level, gl, _event}, state) when node(gl) != node() do
     {:ok, state}

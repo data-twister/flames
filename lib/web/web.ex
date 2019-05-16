@@ -1,30 +1,29 @@
 defmodule Flames.Web do
+  @moduledoc false
 
-   @moduledoc false
-
-   def channel do
+  def channel do
     quote do
       use Phoenix.Channel
-      
-     # import Flames.Gettext
+
+      import Flames.Gettext
     end
   end
 
-   def view do
+  def view do
     quote do
       use Phoenix.View, root: "lib/web/templates"
-     
+
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       use Phoenix.HTML
 
       import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
 
-      # import Flames.ErrorHelpers
+      import Flames.ErrorHelpers
 
-      # import Flames.Gettext
+      import Flames.Gettext
 
-      # alias Flames.Router.Helpers, as: Routes
+      alias Flames.Router.Helpers, as: Routes
     end
   end
 
@@ -32,11 +31,11 @@ defmodule Flames.Web do
     quote do
       use Phoenix.Controller
 
-       # import Plug.Conn
+      import Plug.Conn
 
-       # import Flames.Gettext
+      import Flames.Gettext
 
-      # alias Flames.Router.Helpers, as: Routes
+      alias Flames.Router.Helpers, as: Routes
 
       import Ecto.Query
     end
@@ -53,7 +52,6 @@ defmodule Flames.Web do
       import Phoenix.LiveView.Router
     end
   end
-
 
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])

@@ -4,9 +4,8 @@ if Code.ensure_loaded?(Phoenix.Router) do
     """
 
     use Phoenix.Router
-    
 
-    result =  "live-view"
+    result = "live-view"
 
     backend = String.downcase(result)
 
@@ -35,14 +34,15 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
       case(backend == "react") do
         true ->
-        get("/", ErrorsController, :interface)
-        false ->  get("/", LiveController, :index)
-        end
+          get("/", ErrorsController, :interface)
+
+        false ->
+          get("/", LiveController, :index)
+      end
 
       get("/errors/websocket", LiveController, :index)
       get("/socket/websocket", LiveController, :index)
       get("/websocket", LiveController, :index)
-
     end
 
     scope "/api", Flames do
@@ -57,7 +57,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
         false ->
           pipe_through(:live)
-          
+
           get("/errors/", LiveController, :index)
           get("/errors/:id", LiveController, :show)
           delete("/errors/:id", LiveController, :delete)

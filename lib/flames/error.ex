@@ -6,18 +6,18 @@ defmodule Flames.Error do
 
   @table Application.get_env(:flames, :table) || "errors"
   schema @table do
-    field :message, :string
-    field :level, :string
-    field :timestamp, :naive_datetime
-    field :alive, :boolean
-    field :module, :string
-    field :function, :string
-    field :file, :string
-    field :line, :integer
-    field :count, :integer
-    field :hash, :string
+    field(:message, :string)
+    field(:level, :string)
+    field(:timestamp, :naive_datetime)
+    field(:alive, :boolean)
+    field(:module, :string)
+    field(:function, :string)
+    field(:file, :string)
+    field(:line, :integer)
+    field(:count, :integer)
+    field(:hash, :string)
 
-    embeds_many :incidents, Flames.Error.Incident
+    embeds_many(:incidents, Flames.Error.Incident)
 
     timestamps()
   end
@@ -40,23 +40,28 @@ defmodule Flames.Error do
 
   def find_reported(hash) when is_binary(hash) do
     import Ecto.Query
-    from e in __MODULE__,
+
+    from(e in __MODULE__,
       where: e.hash == ^hash,
       limit: 1
+    )
   end
 
   def merge(original, dups) do
-    counts = original.count + (dups |> Enum.map(&(&1.count)) |> Enum.sum())
-    incidents = [original.incidents, Enum.map(dups, &(&1.incidents))]
-                |> List.flatten()
-                |> Enum.sort_by(&(&1.timestamp))
-                |> Enum.reverse()
-                |> Enum.map(&Map.from_struct/1)
+    counts = original.count + (dups |> Enum.map(& &1.count) |> Enum.sum())
+
+    incidents =
+      [original.incidents, Enum.map(dups, & &1.incidents)]
+      |> List.flatten()
+      |> Enum.sort_by(& &1.timestamp)
+      |> Enum.reverse()
+      |> Enum.map(&Map.from_struct/1)
+
     changeset(original, %{count: counts, incidents: incidents})
   end
 
   def reported?(hash) when is_binary(hash) do
     import Ecto.Query
-    from e in find_reported(hash), select: true
+    from(e in find_reported(hash), select: true)
   end
 end
