@@ -4,11 +4,6 @@ if Code.ensure_loaded?(Phoenix.Router) do
     """
 
     use Phoenix.Router
-    
-
-    result =  "live-view"
-
-    backend = String.downcase(result)
 
     def static_path(%Plug.Conn{script_name: script}, path),
       do: "/" <> Enum.join(script, "/") <> path
