@@ -10,7 +10,6 @@ config :flames,
   ],
   live_reload: [
     patterns: [
-      ...,
       ~r{lib/web/templates/.*(ex)$}
     ]
   ]
