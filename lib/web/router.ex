@@ -28,10 +28,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
     scope "/", Flames do
       pipe_through(:browser)
 
-      live("/", Live.Default)
       live("/errors/websocket", Live.Errors)
-      live("/socket/websocket", Live.Errors)
-      live("/websocket", Live.Errors)
 
     end
 
