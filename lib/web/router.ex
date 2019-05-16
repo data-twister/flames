@@ -28,19 +28,19 @@ if Code.ensure_loaded?(Phoenix.Router) do
     scope "/", Flames do
       pipe_through(:browser)
 
-      live("/", Flames.Live.Default)
-      live("/errors/websocket", Flames.Live.Errors)
-      live("/socket/websocket", Flames.Live.Errors)
-      live("/websocket", Flames.Live.Errors)
+      live("/", Live.Default)
+      live("/errors/websocket", Live.Errors)
+      live("/socket/websocket", Live.Errors)
+      live("/websocket", Live.Errors)
 
     end
 
     scope "/api", Flames do
       pipe_through(:browser)
           
-      live("/errors/", Flames.Live.Errors)
-      live("/error/:id", Flames.Live.Error)
-      live("/errors/search", Flames.Live.Search)
+      live("/errors/", Live.Errors)
+      live("/error/:id", Live.Error)
+      live("/errors/search", Live.Search)
       
     end
   end
