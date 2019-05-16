@@ -15,10 +15,11 @@ if Code.ensure_loaded?(Phoenix.Controller) do
       repo = Application.get_env(:flames, :repo)
       errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))
 
-      case Enum.count(errors) > 1 do
+     resp =  case Enum.count(errors) > 1 do
         true -> LiveView.Controller.live_render(conn, Flames.Live.Errors, session: errors)
         false -> LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
       end
+      IO.inspect(resp, label: "liveview")
     end
 
     def show(conn, %{"id" => error_id}) do
