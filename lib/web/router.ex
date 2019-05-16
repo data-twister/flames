@@ -28,7 +28,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:browser)
       pipe_through(:live)
 
-      get("/", ErrorsController, :index)
+      get("/", ErrorsController, :interface)
       get("/errors/websocket", ErrorsController, :index)
       get("/socket/websocket", ErrorsController, :index)
       get("/websocket", ErrorsController, :index)

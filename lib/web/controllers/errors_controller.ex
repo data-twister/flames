@@ -5,7 +5,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     use Flames.Web, :controller
     alias Phoenix.LiveView
 
-    plug(:put_layout, false when action in [:interface, :index, :show, :search, :delete])
+    #plug(:put_layout, false when action in [:index, :show, :search, :delete])
 
     def interface(conn, _) do
       LiveView.Controller.live_render(conn, Flames.Live.Default, session: [])
