@@ -3,21 +3,42 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     @moduledoc false
 
     use Flames.Web, :controller
+    alias Phoenix.LiveView
 
-    def interface(conn, _params) do
-      render(conn, "index.html")
+    ex plug :put_layout, false when action in [:interface, :index, :show, :search, :delete ] 
+
+    def interface(conn, _) do
+      LiveView.Controller.live_render(conn, Flames.Live.Default, session: [])
     end
 
-    def index(conn, _params) do
+    def index(conn, _) do
       repo = Application.get_env(:flames, :repo)
       errors = repo.all(from(e in Flames.Error, order_by: [desc: e.id]))
-      render(conn, "index.json", errors: errors)
+
+      case Enum.count(errors) > 1 do
+        true -> LiveView.Controller.live_render(conn, Flames.Live.Errors, session: errors)
+        false -> LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
+      end
     end
 
     def show(conn, %{"id" => error_id}) do
       repo = Application.get_env(:flames, :repo)
       error = repo.one(from(e in Flames.Error, where: e.id == ^error_id, limit: 1))
-      render(conn, "show.json", error: error)
+
+      case Enum.count(error) > 1 do
+        true -> LiveView.Controller.live_render(conn, Flames.Live.Error, session: error)
+        false -> LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
+      end
+    end
+
+    def search(conn, %{"term" => term}) do
+      # TODO: Finish
+      results = term |> String.split(" ")
+
+      case Enum.count(results) > 1 do
+        true -> LiveView.Controller.live_render(conn, Flames.Live.Errors, session: results)
+        false -> LiveView.Controller.live_render(conn, Flames.Live.None, session: [])
+      end
     end
 
     def delete(conn, %{"id" => error_id}) do
@@ -28,12 +49,6 @@ if Code.ensure_loaded?(Phoenix.Controller) do
       repo.update!(changeset)
 
       send_resp(conn, :no_content, "")
-    end
-
-    def search(conn, %{"term" => term}) do
-      # TODO: Finish
-      results = term |> String.split(" ")
-      conn |> json(%{results: results})
     end
   end
 end
