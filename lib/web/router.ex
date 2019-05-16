@@ -29,7 +29,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
       pipe_through(:browser)
 
       live("/", Live.Errors)
-      live("/errors/websocket", Live.Errors)
+      live("/websocket", Live.Errors)
 
     end
 
