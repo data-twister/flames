@@ -97,3 +97,15 @@ or
   2. you will need to change the endpoint in app.js to match your live endpoint /errors is the default
 
   Visit http://localhost:4000/errors (or wherever you mounted it) to see a live stream of errors.
+
+3. in dev.exs: add live page reload support —
+config  appname.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/gettext/.*(po)$},
+      ~r{lib/appname/views/.*(ex)$},
+      ~r{lib/appname/templates/.*(eex)$},
+      ~r{lib/appname/live/.*(ex)$}
+    ]
+  ]
