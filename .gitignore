@@ -22,3 +22,4 @@ dummy/
 *.iml
 /assets/node_modules
 .vscode
+.history

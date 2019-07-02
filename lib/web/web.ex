@@ -1,6 +1,8 @@
 defmodule Flames.Web do
   @moduledoc false
 
+  use Plug.Builder
+
   def channel do
     quote do
       use Phoenix.Channel
@@ -56,11 +58,7 @@ defmodule Flames.Web do
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
-
-  # Serves static files, otherwises passes connection to Flames.Router.
-  use Plug.Builder
-
-  plug(Plug.Static, at: "/", from: :flames, only: ~w(css js png))
+ 
 
   plug(Flames.Router)
 end
