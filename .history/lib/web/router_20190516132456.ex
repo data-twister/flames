@@ -11,7 +11,6 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     import Phoenix.LiveView.Router
 
-
     def static_path(%Plug.Conn{script_name: script}, path),
     do: "/" <> Enum.join(script, "/") <> path
 

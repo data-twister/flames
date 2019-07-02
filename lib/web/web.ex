@@ -11,7 +11,7 @@ defmodule Flames.Web do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/web/templates"
+      use Phoenix.View, root: "lib/web/templates", namespace: Flames.Web
 
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
@@ -29,7 +29,7 @@ defmodule Flames.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: Flames.Web
 
       import Plug.Conn
 
