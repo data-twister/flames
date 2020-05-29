@@ -19,7 +19,7 @@ defmodule Flames.Web do
 
       use Phoenix.HTML
 
-      import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
+      import Phoenix.LiveView
 
       import Flames.ErrorHelpers
 

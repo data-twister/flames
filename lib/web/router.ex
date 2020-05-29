@@ -1,7 +1,5 @@
 if Code.ensure_loaded?(Phoenix.Router) do
   defmodule Flames.Router do
-    @moduledoc """
-    """
 
     use Phoenix.Router
 
@@ -21,8 +19,7 @@ if Code.ensure_loaded?(Phoenix.Router) do
       plug(:fetch_session)
       plug(:protect_from_forgery)
       plug(:put_secure_browser_headers)
-      plug(:fetch_flash)
-      plug(Phoenix.LiveView.Flash)
+      plug(:fetch_live_flash)
     end
 
 
