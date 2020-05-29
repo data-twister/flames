@@ -2,7 +2,7 @@ defmodule Flames.Error.Incident do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, except: [:__meta__, :error]}
+  @derive {Jason.Encoder, except: [:__meta__, :error]}
 
   embedded_schema do
     field(:message, :string)

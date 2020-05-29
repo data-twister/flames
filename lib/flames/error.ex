@@ -2,7 +2,7 @@ defmodule Flames.Error do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, except: [:__meta__]}
+  @derive {Jason.Encoder, except: [:__meta__]}
 
   @table Application.get_env(:flames, :table) || "errors"
   schema @table do

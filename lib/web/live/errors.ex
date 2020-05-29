@@ -1,8 +1,8 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
   defmodule Flames.Live.Errors do
+     use Flames.Web, :live_view
     @moduledoc false
 
-    use Phoenix.LiveView
 
     def levelColor(error) do
       nil

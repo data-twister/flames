@@ -1,8 +1,8 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
     defmodule Flames.Live.Search do
+       use Flames.Web, :live_view
       @moduledoc false
-  
-      use Phoenix.LiveView
+
   
       def render(assigns) do
         ~L"""

@@ -1,14 +1,14 @@
 defmodule Flames.Mixfile do
   use Mix.Project
 
-  @version "3.0.2"
+  @version "1.5.8"
   def project do
     [
       app: :flames,
       version: @version,
-      elixir: "~> 1.2",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: compilers(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       name: "flames",
       description: description,
       package: package,
@@ -56,15 +56,16 @@ defmodule Flames.Mixfile do
 
   defp deps do
     [
-      {:ecto, ">= 2.0.0"},
-      {:phoenix, ">= 1.4.0"},
-      {:phoenix_html, ">= 2.3.0"},
-      {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+      {:ecto, ">= 0.0.0"},
+      {:phoenix, ">= 1.5.8"},
+         {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_view, "~> 0.15.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:poison, ">= 3.0.0"},
+            {:jason, "~> 1.0"},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
-      {:earmark, ">= 0.0.0", only: [:docs, :dev]}
+      {:earmark, ">= 0.0.0", only: [:docs, :dev]},
+      {:floki, ">= 0.0.0", only: :test}
     ]
   end
 

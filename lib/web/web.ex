@@ -17,15 +17,7 @@ defmodule Flames.Web do
 
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      use Phoenix.HTML
-
-      import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
-
-      import Flames.ErrorHelpers
-
-      import Flames.Gettext
-
-      alias Flames.Router.Helpers, as: Routes
+unquote(view_helpers())
     end
   end
 
@@ -52,6 +44,38 @@ defmodule Flames.Web do
       import Phoenix.Controller
 
       import Phoenix.LiveView.Router
+    end
+  end
+
+    def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+    def live_view do
+    quote do
+      use Phoenix.LiveView
+
+      unquote(view_helpers())
+
+    end
+  end
+
+  def view_helpers do
+    quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      import Phoenix.LiveView
+
+      import Flames.ErrorHelpers
+
+      import Flames.Gettext
+
+      alias Flames.Router.Helpers, as: Routes
     end
   end
 
