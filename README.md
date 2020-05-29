@@ -99,13 +99,15 @@ or
   Visit http://localhost:4000/errors (or wherever you mounted it) to see a live stream of errors.
 
 3. in dev.exs: add live page reload support —
-config  appname.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
-      ~r{lib/appname/views/.*(ex)$},
-      ~r{lib/appname/templates/.*(eex)$},
-      ~r{lib/appname/live/.*(ex)$}
-    ]
-  ]
+ ```elixir
+  config  appname.Endpoint,
+   live_reload: [
+     patterns: [
+       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+       ~r{priv/gettext/.*(po)$},
+       ~r{lib/appname/views/.*(ex)$},
+       ~r{lib/appname/templates/.*(eex)$},
+       ~r{lib/appname/live/.*(ex)$}
+     ]
+   ]
+    ```
