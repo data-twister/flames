@@ -21,7 +21,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         </div>
       </div>
       <div className="row">
-        <span>Last occurance: @error.timestamp</span>
+        <span>Last occurrence: @error.timestamp</span>
         moduleLine(@error)
         <pre>
         @error.message

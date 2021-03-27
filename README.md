@@ -1,4 +1,6 @@
-# Flames [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
+# Flames-LV [![hex.pm version](https://img.shields.io/hexpm/v/flames.svg)](https://hex.pm/packages/flames) [![Build Status](https://travis-ci.org/data-twister/flames.svg?branch=master)](https://travis-ci.org/data-twister/flames)
+
+## This is a LiveView Implementation of Flames
 
 ![Example Dashboard](example.png)
 
@@ -6,14 +8,14 @@
 
 The package can be installed as:
 
-  1. Add `flames` to your list of dependencies in `mix.exs`:
+  1. Add `flames-lv` to your list of dependencies in `mix.exs`:
 
     ```elixir
     def deps do
-      [{:flames, git: "https://github.com/data-twister/flames.git", tag: "1.4.1"}]
+      [{:flames-lv, git: "https://github.com/data-twister/flames.git", tag: "1.5.8"}]
     end
     ```
-    # tags follow the version pf phx with revisions as alpha ie. 1.4.1 means revsison a is based on phx 1.4.1
+    # tags follow the version pf phx with revisions as alpha ie. 1.5.8 means revsison a is based on phx 1.5.8
 
   2. Ensure `flames` is started before your application:
 

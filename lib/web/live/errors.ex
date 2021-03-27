@@ -28,6 +28,9 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
     # def render(assigns), do: Errors.render("index.html", assigns)
 
     def mount(_session, socket) do
+        endpoint = Application.get_env(:flames, :endpoint)
+        if connected?(socket), do: endpoint.subscribe("errors", "error")
+
       {:ok, assign(socket, errors: [])}
     end
 
