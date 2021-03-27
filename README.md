@@ -8,7 +8,7 @@
 
 The package can be installed as:
 
-  1. Add `flames-lv` to your list of dependencies in `mix.exs`:
+  1. Add `flames` to your list of dependencies in `mix.exs`:
 
     ```elixir
     def deps do
