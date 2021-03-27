@@ -4,7 +4,8 @@ use Mix.Config
 
 config :flames,
   repo: FakeRepo,
-  endpoint: FakeEndpoint
+  endpoint: FakeEndpoint,
+  ttl: 60
 
 # Configures the endpoint
 config :flames, Flames.Endpoint,

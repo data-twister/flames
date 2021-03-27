@@ -29,7 +29,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     def mount(_session, socket) do
         endpoint = Application.get_env(:flames, :endpoint)
-        if connected?(socket), do: endpoint.subscribe("errors", "error")
+        if connected?(socket), do: endpoint.subscribe("errors", "errors")
 
       {:ok, assign(socket, errors: [])}
     end

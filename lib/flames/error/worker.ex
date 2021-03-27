@@ -62,6 +62,9 @@ defmodule Flames.Error.Worker do
   defp broadcast(error) do
     endpoint = Application.get_env(:flames, :endpoint)
     endpoint && endpoint.broadcast("errors", "error", error)
+
+    Error.Queue.add(error)
+
     error
   end
 
