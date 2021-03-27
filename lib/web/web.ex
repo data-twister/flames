@@ -17,7 +17,7 @@ defmodule Flames.Web do
 
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-unquote(view_helpers())
+      unquote(view_helpers())
     end
   end
 
@@ -47,7 +47,7 @@ unquote(view_helpers())
     end
   end
 
-    def live_component do
+  def live_component do
     quote do
       use Phoenix.LiveComponent
 
@@ -55,12 +55,11 @@ unquote(view_helpers())
     end
   end
 
-    def live_view do
+  def live_view do
     quote do
       use Phoenix.LiveView
 
       unquote(view_helpers())
-
     end
   end
 
@@ -82,7 +81,6 @@ unquote(view_helpers())
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end
- 
 
   plug(Flames.Router)
 end

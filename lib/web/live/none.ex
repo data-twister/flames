@@ -1,6 +1,6 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
   defmodule Flames.Live.None do
-     use Flames.Web, :live_view
+    use Flames.Web, :live_view
     @moduledoc false
 
     def render(assigns) do

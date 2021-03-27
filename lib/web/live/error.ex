@@ -1,8 +1,7 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
   defmodule Flames.Live.Error do
-     use Flames.Web, :live_view
+    use Flames.Web, :live_view
     @moduledoc false
-
 
     # def render(assigns), do: Error.render("index.html", assigns)
 

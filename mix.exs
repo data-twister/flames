@@ -58,11 +58,11 @@ defmodule Flames.Mixfile do
     [
       {:ecto, ">= 0.0.0"},
       {:phoenix, ">= 1.5.8"},
-         {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 2.11"},
       {:phoenix_live_view, "~> 0.15.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-            {:jason, "~> 1.0"},
+      {:jason, "~> 1.0"},
       {:ex_doc, ">= 0.0.0", only: [:docs, :dev]},
       {:earmark, ">= 0.0.0", only: [:docs, :dev]},
       {:floki, ">= 0.0.0", only: :test}

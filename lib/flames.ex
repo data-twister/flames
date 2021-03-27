@@ -9,7 +9,7 @@ defmodule Flames do
     Logger.debug("Starting flames!", flames: true)
     # Define workers and child supervisors to be supervised
     children = [
-      supervisor(Task.Supervisor, []),
+      supervisor(Task.Supervisor, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

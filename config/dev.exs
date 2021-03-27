@@ -17,8 +17,6 @@ config :flames, Flames.Endpoint,
     ]
   ]
 
-
-
 config :flames, Flames.Endpoint,
   live_reload: [
     patterns: [
@@ -41,5 +39,3 @@ config :flames,
 
 config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]
-
-  

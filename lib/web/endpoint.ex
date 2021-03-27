@@ -2,25 +2,25 @@ defmodule Flames.Endpoint do
   use Phoenix.Endpoint, otp_app: :flames
 
   socket("/errors/socket", Flames.UserSocket,
-  websocket: true,
+    websocket: true,
     longpoll: false
   )
 
   socket("/errors/websocket", Phoenix.LiveView.Socket,
-  websocket: true,
-  longpoll: false
+    websocket: true,
+    longpoll: false
   )
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-   plug(Plug.Static,
-     at: "/",
-     from: :flames,
-     gzip: false,
-     only: ~w(css fonts images js favicon.ico robots.txt)
-   )
+  plug(Plug.Static,
+    at: "/",
+    from: :flames,
+    gzip: false,
+    only: ~w(css fonts images js favicon.ico robots.txt)
+  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -33,10 +33,11 @@ defmodule Flames.Endpoint do
   plug(Plug.RequestId)
   plug(Plug.Logger)
 
-  plug Plug.Parsers,
+  plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
+  )
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)

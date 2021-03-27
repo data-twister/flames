@@ -15,11 +15,9 @@ defmodule Flames.Logger do
     {:ok, configure()}
   end
 
-
   def handle_call({:configure, options}, state) do
     {:ok, :ok, configure(options)}
   end
-
 
   def handle_event(:flush, state) do
     {:ok, state}

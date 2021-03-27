@@ -1,6 +1,5 @@
 if Code.ensure_loaded?(Phoenix.Router) do
   defmodule Flames.Router do
-
     use Phoenix.Router
 
     import Plug.Conn
@@ -9,10 +8,8 @@ if Code.ensure_loaded?(Phoenix.Router) do
 
     import Phoenix.LiveView.Router
 
-
     def static_path(%Plug.Conn{script_name: script}, path),
-    do: "/" <> Enum.join(script, "/") <> path
-
+      do: "/" <> Enum.join(script, "/") <> path
 
     pipeline :browser do
       plug(:accepts, ~w(html json))
@@ -22,22 +19,19 @@ if Code.ensure_loaded?(Phoenix.Router) do
       plug(:fetch_live_flash)
     end
 
-
     scope "/", Flames do
       pipe_through(:browser)
 
       live("/", Live.Errors)
       live("/websocket", Live.Errors)
-
     end
 
     scope "/api", Flames do
       pipe_through(:browser)
-          
+
       live("/errors/", Live.Errors)
       live("/error/:id", Live.Error)
       live("/errors/search", Live.Search)
-      
     end
   end
 end
