@@ -12,7 +12,7 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:flames-lv, git: "https://github.com/data-twister/flames.git", tag: "1.5.8"}]
+      [{:flames, git: "https://github.com/data-twister/flames.git", tag: "1.5.8"}]
     end
     ```
     # tags follow the version pf phx with revisions as alpha ie. 1.5.8 means revsison a is based on phx 1.5.8
