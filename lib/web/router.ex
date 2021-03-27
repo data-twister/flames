@@ -29,9 +29,8 @@ if Code.ensure_loaded?(Phoenix.Router) do
     scope "/api", Flames do
       pipe_through(:browser)
 
-      live("/errors/", Live.Errors)
+      live("/errors/", Live.Dashboard)
       live("/error/:id", Live.Error)
-      live("/errors/search", Live.Search)
     end
   end
 end

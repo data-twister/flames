@@ -1,27 +1,15 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
-  defmodule Flames.Live.Errors do
+  defmodule Flames.Live.Dashboard do
     use Flames.Web, :live_view
     @moduledoc false
 
-    def levelColor(error) do
-      nil
-    end
-
-    def renderFileInfo(error) do
-      nil
-    end
-
-    def rowColor(error) do
-      nil
-    end
-
     def render(assigns) do
       ~L"""
-      <div>
       <div id="errors" className="table table-stripped table-hover">
+  <%=  for x <- @errors do %>
+       <%=  live_component(@socket,  ApiWeb.Errors.Detail, error: x) %>
+       <% end %>
       </div>
-      </div>
-
       """
     end
 
@@ -34,6 +22,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       {:ok, assign(socket, errors: [])}
     end
 
+
     def handle_event("add-errors", %{"q" => errors}, socket) do
       case errors do
         "" -> {:noreply, assign(socket, :errors, [])}
@@ -41,4 +30,4 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
       end
     end
   end
-end
+  end

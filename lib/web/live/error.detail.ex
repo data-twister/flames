@@ -1,7 +1,9 @@
 if Code.ensure_loaded?(Phoenix.LiveView) do
-  defmodule Flames.Live.Error do
-    use Flames.Web, :live_view
+  defmodule Flames.Live.Error.Detail do
+    use Flames.Web, :live_component
     @moduledoc false
+
+    # def render(assigns), do: Error.render("index.html", assigns)
 
     def moduleLine(error) do
       "<span>
@@ -12,6 +14,7 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
 
     def render(assigns) do
       ~L"""
+      <Layout>
       <div className="row">
         <div className="col-xs-12">
           <Link to="/">≪ Back</Link>
@@ -24,15 +27,13 @@ if Code.ensure_loaded?(Phoenix.LiveView) do
         @error.message
         </pre>
       </div>
+      </Layout>
       """
     end
 
-    # def render(assigns), do: Errors.render("index.html", assigns)
-
     def mount(_session, socket) do
-
-      {:ok, assign(socket, errors: [])}
+      {:ok, assign(socket, error: "error!")}
     end
-end
 
+  end
 end
